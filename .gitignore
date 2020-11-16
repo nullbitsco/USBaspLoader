@@ -1,0 +1,9 @@
+
+.devcontainer/devcontainer.json
+*.raw
+*.o
+*.map
+updater/updater.asm
+*.asm
+*.elf
+updater/updater.hex

@@ -39,29 +39,29 @@ these macros are defined, the boot loader usees them.
 */
 
 /* ---------------------------- Macro Magic ---------------------------- */
-#define		PIN_CONCAT(a,b)			a ## b
-#define		PIN_CONCAT3(a,b,c)		a ## b ## c
+#define PIN_CONCAT(a, b) a##b
+#define PIN_CONCAT3(a, b, c) a##b##c
 
-#define		PIN_PORT(a)			PIN_CONCAT(PORT, a)
-#define		PIN_PIN(a)			PIN_CONCAT(PIN, a)
-#define		PIN_DDR(a)			PIN_CONCAT(DDR, a)
+#define PIN_PORT(a) PIN_CONCAT(PORT, a)
+#define PIN_PIN(a) PIN_CONCAT(PIN, a)
+#define PIN_DDR(a) PIN_CONCAT(DDR, a)
 
-#define		PIN(a, b)			PIN_CONCAT3(P, a, b)
+#define PIN(a, b) PIN_CONCAT3(P, a, b)
 
 /* ---------------------------- Hardware Config ---------------------------- */
 
 #ifndef USB_CFG_IOPORTNAME
-  #define USB_CFG_IOPORTNAME      D
+#define USB_CFG_IOPORTNAME D
 #endif
 /* This is the port where the USB bus is connected. When you configure it to
  * "B", the registers PORTB, PINB and DDRB will be used.
  */
 #ifndef USB_CFG_INTPORT_BIT
-  #if (defined(__AVR_ATmega640__) || defined (__AVR_ATmega128__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__))
-    #define USB_CFG_INTPORT_BIT 0
-  #else
-    #define USB_CFG_INTPORT_BIT 2
-  #endif
+#if (defined(__AVR_ATmega640__) || defined(__AVR_ATmega128__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega1281__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega2561__))
+#define USB_CFG_INTPORT_BIT 0
+#else
+#define USB_CFG_INTPORT_BIT 2
+#endif
 #endif
 /* Not all devices have their INT0 on PD2.
  * Since "INT0" and "USB_CFG_DPLUS_BIT" should get the same signals,
@@ -70,34 +70,34 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifndef USB_CFG_DMINUS_BIT
-  /* This is Revision 3 and later (where PD6 and PD7 were swapped */
-  #define USB_CFG_DMINUS_BIT      7    /* Rev.2 and previous was 6 */
+/* This is Revision 3 and later (where PD6 and PD7 were swapped */
+#define USB_CFG_DMINUS_BIT 3 /* Rev.2 and previous was 6 */
 #endif
 /* This is the bit number in USB_CFG_IOPORT where the USB D- line is connected.
  * This may be any bit in the port.
  */
 #ifndef USB_CFG_DPLUS_BIT
-  #define USB_CFG_DPLUS_BIT       USB_CFG_INTPORT_BIT
+#define USB_CFG_DPLUS_BIT USB_CFG_INTPORT_BIT
 #endif
 /* This is the bit number in USB_CFG_IOPORT where the USB D+ line is connected.
  * This may be any bit in the port. Please note that D+ must also be connected
  * to interrupt pin INT0!
  */
 #ifndef JUMPER_PORT
-  #define JUMPER_PORT		USB_CFG_IOPORTNAME
+#define JUMPER_PORT USB_CFG_IOPORTNAME
 #endif
 /* 
  * jumper is connected to this port
  */
 #ifndef JUMPER_BIT
-  /* This is Revision 3 and later (where PD6 and PD7 were swapped */
-  #define JUMPER_BIT           6       /* Rev.2 and previous was 7 */
+/* This is Revision 3 and later (where PD6 and PD7 were swapped */
+#define JUMPER_BIT 4 /* Rev.2 and previous was 7 */
 #endif
 /* 
  * jumper is connected to this bit in port "JUMPER_PORT", active low
  */
 
-#define USB_CFG_CLOCK_KHZ       (F_CPU/1000)
+#define USB_CFG_CLOCK_KHZ (F_CPU / 1000)
 /* Clock rate of the AVR in MHz. Legal values are 12000, 16000 or 16500.
  * The 16.5 MHz version of the code requires no crystal, it tolerates +/- 1%
  * deviation from the nominal frequency. All other rates require a precision
@@ -124,9 +124,9 @@ these macros are defined, the boot loader usees them.
 /* ------------------------------------------------------------------------- */
 
 #ifndef CONFIG_NO__HAVE_READ_LOCK_FUSE
-  #define HAVE_READ_LOCK_FUSE	    1
+#define HAVE_READ_LOCK_FUSE 1
 #else
-  #define HAVE_READ_LOCK_FUSE	    0
+#define HAVE_READ_LOCK_FUSE 0
 #endif
 /*
  * enable the loaders capability to load its lfuse, hfuse and lockbits
@@ -134,9 +134,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifndef CONFIG_NO__HAVE_BLB11_SOFTW_LOCKBIT
-  #define HAVE_BLB11_SOFTW_LOCKBIT    1
+#define HAVE_BLB11_SOFTW_LOCKBIT 1
 #else
-  #define HAVE_BLB11_SOFTW_LOCKBIT    0
+#define HAVE_BLB11_SOFTW_LOCKBIT 0
 #endif
 /*
  * The IC itself do not need to prgra BLB11, but the bootloader will avaoid 
@@ -144,9 +144,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifndef CONFIG_NO__HAVE_SPMINTEREFACE
-  #define HAVE_SPMINTEREFACE	    1
+#define HAVE_SPMINTEREFACE 1
 #else
-  #define HAVE_SPMINTEREFACE	    0
+#define HAVE_SPMINTEREFACE 0
 #endif
 /*
  * Since code within normal section of application memory (rww-section) is
@@ -158,7 +158,7 @@ these macros are defined, the boot loader usees them.
  * feature.
  */
 
-#define HAVE_SPMINTEREFACE_NORETMAGIC	1
+#define HAVE_SPMINTEREFACE_NORETMAGIC 1
 /*
  * If sth. went wrong within "bootloader__do_spm" and this macro is ACTIVATED,
  * then "bootloader__do_spm" will not return the call and loop infinity instead.
@@ -167,7 +167,7 @@ these macros are defined, the boot loader usees them.
  */
 
 /* all boards should use a magic to make it safe to confuse updatefiles :-)  */
-#define HAVE_SPMINTEREFACE_MAGICVALUE    0
+#define HAVE_SPMINTEREFACE_MAGICVALUE 0
 /* If this feature is enabled (value != 0), the configured 32bit value is 
  * used as a magic value within spminterface. "bootloader__do_spm" will check
  * additional four (4) registers for this value and only proceed, if they contain
@@ -327,9 +327,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifndef CONFIG_NO__EEPROM_PAGED_ACCESS
-#	define HAVE_EEPROM_PAGED_ACCESS    1
+#define HAVE_EEPROM_PAGED_ACCESS 1
 #else
-#	define HAVE_EEPROM_PAGED_ACCESS    0
+#define HAVE_EEPROM_PAGED_ACCESS 0
 #endif
 /* If HAVE_EEPROM_PAGED_ACCESS is defined to 1, page mode access to EEPROM is
  * compiled in. Whether page mode or byte mode access is used by AVRDUDE
@@ -339,9 +339,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifndef CONFIG_NO__EEPROM_BYTE_ACCESS
-#	define HAVE_EEPROM_BYTE_ACCESS     1
+#define HAVE_EEPROM_BYTE_ACCESS 1
 #else
-#	define HAVE_EEPROM_BYTE_ACCESS     0
+#define HAVE_EEPROM_BYTE_ACCESS 0
 #endif
 /* If HAVE_EEPROM_BYTE_ACCESS is defined to 1, byte mode access to EEPROM is
  * compiled in. Byte mode is only used if the device (as identified by its
@@ -350,26 +350,26 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifndef CONFIG_NO__BOOTLOADER_CAN_EXIT
-#	define BOOTLOADER_CAN_EXIT         1
+#define BOOTLOADER_CAN_EXIT 1
 #else
-#	define BOOTLOADER_CAN_EXIT         0
+#define BOOTLOADER_CAN_EXIT 0
 #endif
 /* If this macro is defined to 1, the boot loader will exit shortly after the
  * programmer closes the connection to the device. Costs extra bytes.
  */
 
 #ifndef CONFIG_NO__CHIP_ERASE
-#	define HAVE_CHIP_ERASE             1
+#define HAVE_CHIP_ERASE 1
 #else
-#	define HAVE_CHIP_ERASE             0
+#define HAVE_CHIP_ERASE 0
 #endif
 /* If this macro is defined to 1, the boot loader implements the Chip Erase
  * ISP command. Otherwise pages are erased on demand before they are written.
  */
 #ifndef CONFIG_NO__ONDEMAND_PAGEERASE
-#	define HAVE_ONDEMAND_PAGEERASE            1
+#define HAVE_ONDEMAND_PAGEERASE 1
 #else
-#	define HAVE_ONDEMAND_PAGEERASE            0
+#define HAVE_ONDEMAND_PAGEERASE 0
 #endif
 /* Even if "HAVE_CHIP_ERASE" is avtivated - enabling the "HAVE_ONDEMAND_PAGEERASE"-
  * feature the bootloader will erase pages on demand short before writing new data
@@ -380,9 +380,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifndef CONFIG_NO__NEED_WATCHDOG
-#	define NEED_WATCHDOG		1
+#define NEED_WATCHDOG 1
 #else
-#	define NEED_WATCHDOG		0
+#define NEED_WATCHDOG 0
 #endif
 /* ATTANTION: This macro MUST BE 1, if the MCU has reset enabled watchdog (WDTON is 0).
  * If this macro is defined to 1, the bootloader implements an additional "wdt_disable()"
@@ -392,9 +392,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifndef CONFIG_NO__PRESERVE_WATCHDOG
-#	define PRESERVE_WATCHDOG	1
+#define PRESERVE_WATCHDOG 1
 #else
-#	define PRESERVE_WATCHDOG	0
+#define PRESERVE_WATCHDOG 0
 #endif
 /* In case a watchdog is supported (NEED_WATCHDOG) and USE_EXCESSIVE_ASSEMBLER is false,
  * the bootloader will run with active watchdog instead of disabling it.
@@ -405,9 +405,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifndef CONFIG_NO__PRECISESLEEP
-#	define HAVE_UNPRECISEWAIT	0
+#define HAVE_UNPRECISEWAIT 0
 #else
-#	define HAVE_UNPRECISEWAIT	1
+#define HAVE_UNPRECISEWAIT 1
 #endif
 /* This macro enables hand-optimized assembler code
  * instead to use _sleep_ms for delaying USB enumeration.
@@ -417,9 +417,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifndef CONFIG_NO__FLASH_BYTE_READACCESS
-#	define HAVE_FLASH_BYTE_READACCESS	1
+#define HAVE_FLASH_BYTE_READACCESS 1
 #else
-#	define HAVE_FLASH_BYTE_READACCESS	0
+#define HAVE_FLASH_BYTE_READACCESS 0
 #endif
 /* If HAVE_FLASH_BYTE_READACCESS is defined to 1, byte mode access to FLASH is
  * compiled in. Byte mode sometimes might be used by some programming softwares
@@ -428,9 +428,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifdef CONFIG_USE__EXCESSIVE_ASSEMBLER
-#	define USE_EXCESSIVE_ASSEMBLER		1
+#define USE_EXCESSIVE_ASSEMBLER 1
 #else
-#	define USE_EXCESSIVE_ASSEMBLER		0
+#define USE_EXCESSIVE_ASSEMBLER 0
 #endif
 /* This macro enables large codeareas of hand-optimized assembler code.
  * WARNING:
@@ -441,9 +441,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifdef CONFIG_USE__BOOTUP_CLEARRAM
-#	define USE_BOOTUP_CLEARRAM		1
+#define USE_BOOTUP_CLEARRAM 1
 #else
-#	define USE_BOOTUP_CLEARRAM		0
+#define USE_BOOTUP_CLEARRAM 0
 #endif
 /* This macro enables some (init3) code, executed at bootup.
  * This codefragment will safely overwrite the whole SRAM with "0"
@@ -451,9 +451,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifdef CONFIG_NO__BOOTLOADERENTRY_FROMSOFTWARE
-#	define HAVE_BOOTLOADERENTRY_FROMSOFTWARE 0
+#define HAVE_BOOTLOADERENTRY_FROMSOFTWARE 0
 #else
-#	define HAVE_BOOTLOADERENTRY_FROMSOFTWARE 1
+#define HAVE_BOOTLOADERENTRY_FROMSOFTWARE 1
 #endif
 /* 
  * Enable firmware to boot the bootloader without
@@ -461,9 +461,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifdef CONFIG_NO__BOOTLOADER_HIDDENEXITCOMMAND
-#	define HAVE_BOOTLOADER_HIDDENEXITCOMMAND 0
+#define HAVE_BOOTLOADER_HIDDENEXITCOMMAND 0
 #else
-#	define HAVE_BOOTLOADER_HIDDENEXITCOMMAND 0xff
+#define HAVE_BOOTLOADER_HIDDENEXITCOMMAND 0xff
 #endif
 /* 
  * When enabling "BOOTLOADER_HIDDENEXITCOMMAND", then
@@ -473,9 +473,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifdef CONFIG_BOOTLOADER_LOOPCYCLES_TIMEOUT
-#	define BOOTLOADER_LOOPCYCLES_TIMEOUT	(CONFIG_BOOTLOADER_LOOPCYCLES_TIMEOUT)
-#else 
-#	define BOOTLOADER_LOOPCYCLES_TIMEOUT	(0)
+#define BOOTLOADER_LOOPCYCLES_TIMEOUT (CONFIG_BOOTLOADER_LOOPCYCLES_TIMEOUT)
+#else
+#define BOOTLOADER_LOOPCYCLES_TIMEOUT (0)
 #endif
 /* 
  * When greater than "0", "BOOTLOADER_LOOPCYCLES_TIMEOUT"
@@ -498,13 +498,13 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifdef CONFIG_HAVE__BOOTLOADER_ALWAYSENTERPROGRAMMODE
-#	if (BOOTLOADER_CAN_EXIT)
-#		define BOOTLOADER_ALWAYSENTERPROGRAMMODE 1
-#	else
-#		define BOOTLOADER_ALWAYSENTERPROGRAMMODE 0
-#	endif
+#if (BOOTLOADER_CAN_EXIT)
+#define BOOTLOADER_ALWAYSENTERPROGRAMMODE 1
 #else
-#	define BOOTLOADER_ALWAYSENTERPROGRAMMODE 0
+#define BOOTLOADER_ALWAYSENTERPROGRAMMODE 0
+#endif
+#else
+#define BOOTLOADER_ALWAYSENTERPROGRAMMODE 0
 #endif
 /*
  * Ignore bootLoaderCondition() (BUT NOT bootLoaderConditionSimple())
@@ -517,11 +517,11 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifdef CONFIG_HAVE__BOOTLOADER_IGNOREPROGBUTTON
-#	if ( (BOOTLOADER_ALWAYSENTERPROGRAMMODE) && (defined(BOOTLOADER_CAN_EXIT)) && (BOOTLOADER_LOOPCYCLES_TIMEOUT >= 8) )
-#		define BOOTLOADER_IGNOREPROGBUTTON	1
-#	else
-#		define BOOTLOADER_IGNOREPROGBUTTON	0
-#	endif
+#if ((BOOTLOADER_ALWAYSENTERPROGRAMMODE) && (defined(BOOTLOADER_CAN_EXIT)) && (BOOTLOADER_LOOPCYCLES_TIMEOUT >= 8))
+#define BOOTLOADER_IGNOREPROGBUTTON 1
+#else
+#define BOOTLOADER_IGNOREPROGBUTTON 0
+#endif
 #endif
 /*
  * Generates an USBaspLoader without using the PROGBUTTON.
@@ -538,9 +538,9 @@ these macros are defined, the boot loader usees them.
  */
 
 #ifdef CONFIG_NO__BOOTLOADER_ADDITIONALDEVICEWAIT
-#	define HAVE_BOOTLOADER_ADDITIONALMSDEVICEWAIT 0
+#define HAVE_BOOTLOADER_ADDITIONALMSDEVICEWAIT 0
 #else
-#	define HAVE_BOOTLOADER_ADDITIONALMSDEVICEWAIT 50
+#define HAVE_BOOTLOADER_ADDITIONALMSDEVICEWAIT 50
 #endif
 /* 
  * When enabling "HAVE_BOOTLOADER_ADDITIONALMSDEVICEWAIT", then
@@ -556,7 +556,6 @@ these macros are defined, the boot loader usees them.
  * ATMega88, ATMega168 and ATMega328 are guessed correctly.
  */
 
-
 /* ------------------------------------------------------------------------- */
 
 /* Example configuration: Port D bit 3 is connected to a jumper which ties
@@ -567,48 +566,47 @@ these macros are defined, the boot loader usees them.
  * bootLoaderCondition() for efficiency.
  */
 
-#ifndef __ASSEMBLER__   /* assembler cannot parse function definitions */
+#ifndef __ASSEMBLER__ /* assembler cannot parse function definitions */
 
-#ifndef MCUCSR          /* compatibility between ATMega8 and ATMega88 */
-#   define MCUCSR   MCUSR
-#   define __MCUCSR_COMPATMODE 1
+#ifndef MCUCSR /* compatibility between ATMega8 and ATMega88 */
+#define MCUCSR MCUSR
+#define __MCUCSR_COMPATMODE 1
 #endif
 
-#ifndef WDTCR          /* another compatibility between ATMega8 and ATMega88 */
-#   define WDTCR   WDTCSR
-#   define __WDTCR_COMPATMODE 1
+#ifndef WDTCR /* another compatibility between ATMega8 and ATMega88 */
+#define WDTCR WDTCSR
+#define __WDTCR_COMPATMODE 1
 #endif
 
 /* WARNING:
  * following commands and macros may not be evaluated properly when 'USE_EXCESSIVE_ASSEMBLER"
  */
 
-static inline void  bootLoaderInit(void)
+static inline void bootLoaderInit(void)
 {
 #if (BOOTLOADER_IGNOREPROGBUTTON)
 #else
-    PIN_DDR(JUMPER_PORT)  = 0;
-    PIN_PORT(JUMPER_PORT) = (1<< PIN(JUMPER_PORT, JUMPER_BIT)); /* activate pull-up */
+  PIN_DDR(JUMPER_PORT) = 0;
+  PIN_PORT(JUMPER_PORT) = (1 << PIN(JUMPER_PORT, JUMPER_BIT)); /* activate pull-up */
 #endif
 
-//     deactivated by Stephan - reset after each avrdude op is annoing!
-//     if(!(MCUCSR & (1 << EXTRF)))    /* If this was not an external reset, ignore */
-//         leaveBootloader();
+  //     deactivated by Stephan - reset after each avrdude op is annoing!
+  //     if(!(MCUCSR & (1 << EXTRF)))    /* If this was not an external reset, ignore */
+  //         leaveBootloader();
 }
 
-static inline void  bootLoaderExit(void)
+static inline void bootLoaderExit(void)
 {
 #if (BOOTLOADER_IGNOREPROGBUTTON)
 #else
-    PIN_PORT(JUMPER_PORT) = 0;		/* undo bootLoaderInit() changes */
+  PIN_PORT(JUMPER_PORT) = 0;                                   /* undo bootLoaderInit() changes */
 #endif
 }
 
-
 #if (BOOTLOADER_IGNOREPROGBUTTON)
-#	define bootLoaderConditionSimple()	(false)
+#define bootLoaderConditionSimple() (false)
 #else
-#	define bootLoaderConditionSimple()	((PIN_PIN(JUMPER_PORT) & (1 << PIN(JUMPER_PORT, JUMPER_BIT))) == 0)
+#define bootLoaderConditionSimple() ((PIN_PIN(JUMPER_PORT) & (1 << PIN(JUMPER_PORT, JUMPER_BIT))) == 0)
 #endif
 
 #if (HAVE_BOOTLOADERENTRY_FROMSOFTWARE)
@@ -626,31 +624,35 @@ static inline void  bootLoaderExit(void)
 #include <stdbool.h>
 #include <stdint.h>
 
-#define __BOOTLOADERENTRY_FROMSOFTWARE__EXPECTEDADDRESS	(BOOTLOADER_ADDRESS>>1)
-static volatile uint8_t __BOOTLOADERENTRY_FROMSOFTWARE__bootup_RAMEND_doesmatch __attribute__ ((section(".noinit")));
-static volatile uint8_t __BOOTLOADERENTRY_FROMSOFTWARE__bootup_MCUCSR __attribute__ ((section(".noinit")));
+#define __BOOTLOADERENTRY_FROMSOFTWARE__EXPECTEDADDRESS (BOOTLOADER_ADDRESS >> 1)
+static volatile uint8_t __BOOTLOADERENTRY_FROMSOFTWARE__bootup_RAMEND_doesmatch __attribute__((section(".noinit")));
+static volatile uint8_t __BOOTLOADERENTRY_FROMSOFTWARE__bootup_MCUCSR __attribute__((section(".noinit")));
 
-#	if (BOOTLOADER_ALWAYSENTERPROGRAMMODE)
-#		define bootLoaderCondition()	(true)
-#	else
+#if (BOOTLOADER_ALWAYSENTERPROGRAMMODE)
+#define bootLoaderCondition() (true)
+#else
 static inline bool bootLoaderCondition(void)
 {
-  if (__BOOTLOADERENTRY_FROMSOFTWARE__bootup_MCUCSR & (~(_BV(WDRF)))) {
-  } else {
-    if (__BOOTLOADERENTRY_FROMSOFTWARE__bootup_RAMEND_doesmatch == (__BOOTLOADERENTRY_FROMSOFTWARE__EXPECTEDADDRESS & 0xff)) {
+  if (__BOOTLOADERENTRY_FROMSOFTWARE__bootup_MCUCSR & (~(_BV(WDRF))))
+  {
+  }
+  else
+  {
+    if (__BOOTLOADERENTRY_FROMSOFTWARE__bootup_RAMEND_doesmatch == (__BOOTLOADERENTRY_FROMSOFTWARE__EXPECTEDADDRESS & 0xff))
+    {
       // anything else: match - the firmware is calling the bootloader
       return true;
     }
   }
   return bootLoaderConditionSimple();
 }
-#	endif
+#endif
 #else
-#	if (BOOTLOADER_ALWAYSENTERPROGRAMMODE)
-#		define bootLoaderCondition()	(true)
-#	else
-#		define bootLoaderCondition	bootLoaderConditionSimple
-#	endif
+#if (BOOTLOADER_ALWAYSENTERPROGRAMMODE)
+#define bootLoaderCondition() (true)
+#else
+#define bootLoaderCondition bootLoaderConditionSimple
+#endif
 #endif
 
 #endif /* __ASSEMBLER__ */
