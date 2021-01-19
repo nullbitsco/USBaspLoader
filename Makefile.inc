@@ -36,8 +36,8 @@ DEFINES += -DCONFIG_NO__CHIP_ERASE -DCONFIG_NO__ONDEMAND_PAGEERASE -DCONFIG_NO__
 DANGEROUS=0
 
 # PROGRAMMER contains AVRDUDE options to address your programmer
-# PROGRAMMER = -c pony-stk200
-PROGRAMMER = -c usbasp
+# PROGRAMMER = -c usbasp
+PROGRAMMER = -C /home/pi/programmer/avrdude_gpio.conf -c pi_1 -v
 
 #  since USBaspLoader supports HAVE_BLB11_SOFTW_LOCKBIT...
 LOCKOPT = -U lock:w:0x3f:m
@@ -151,7 +151,7 @@ DEFINES_168             = -DCONFIG_USE__EXCESSIVE_ASSEMBLER -DCONFIG_NO__NEED_WA
 
 
 
-FUSEOPT_328             = -U lfuse:w:0xd7:m -U hfuse:w:0xd0:m -U efuse:w:0x04:m
+FUSEOPT_328             = -U lfuse:w:0xd7:m -U hfuse:w:0xd0:m -U efuse:w:0xfc:m
 BOOTLOADER_ADDRESS_328  = 0x7000
 DEFINES_328             = #-DEMPTY
 
@@ -353,7 +353,7 @@ NEW_BOOTLOADER_ADDRESS = $(BOOTLOADER_ADDRESS)
 
 # Tools:
 AVRPATH = $(AVR8TOOLCHAINBINDIR)
-AVRDUDE = $(AVRDUDEBINDIR)avrdude $(PROGRAMMER) -p $(DEVICE)
+AVRDUDE = sudo $(AVRDUDEBINDIR)avrdude $(PROGRAMMER) -p $(DEVICE)
 
 # Platform
 # Check operative system.

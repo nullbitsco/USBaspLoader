@@ -84,14 +84,13 @@ these macros are defined, the boot loader usees them.
  * to interrupt pin INT0!
  */
 #ifndef JUMPER_PORT
-#define JUMPER_PORT USB_CFG_IOPORTNAME
+#define JUMPER_PORT C
 #endif
 /* 
  * jumper is connected to this port
  */
 #ifndef JUMPER_BIT
-/* This is Revision 3 and later (where PD6 and PD7 were swapped */
-#define JUMPER_BIT 4 /* Rev.2 and previous was 7 */
+#define JUMPER_BIT 1 
 #endif
 /* 
  * jumper is connected to this bit in port "JUMPER_PORT", active low

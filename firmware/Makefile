@@ -51,7 +51,7 @@ readflash:
 
 fuse:
 	$(ECHO) "."
-	$(AVRDUDE) $(FUSEOPT)
+	$(AVRDUDE) -V $(FUSEOPT)
 	$(ECHO) "."
 	$(ECHO) "."
 
